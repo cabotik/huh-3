@@ -57,6 +57,37 @@ namespace huh
             spPalette.Visibility = Visibility.Visible;
             graph.graphType = "Spline";
         }
+        private void btnFloraHues_Click(object sender, RoutedEventArgs e)
+        {
+            cPie.Palette = ChartColorPalette.FloraHues;
+            spExport.Visibility = Visibility.Visible;
+            spReference.Visibility = Visibility.Visible;
+            spRefreash.Visibility = Visibility.Visible;
+        }
+
+        private void btnTomotoSpectrum_Click(object sender, RoutedEventArgs e)
+        {
+            cPie.Palette = ChartColorPalette.TomotoSpectrum;
+            spExport.Visibility = Visibility.Visible;
+            spReference.Visibility = Visibility.Visible;
+            spRefreash.Visibility = Visibility.Visible;
+        }
+
+        private void btnPineapple_Click(object sender, RoutedEventArgs e)
+        {
+            cPie.Palette = ChartColorPalette.Pineapple;
+            spExport.Visibility = Visibility.Visible;
+            spReference.Visibility = Visibility.Visible;
+            spRefreash.Visibility = Visibility.Visible;
+        }
+
+        private void btnAutumnBrights_Click(object sender, RoutedEventArgs e)
+        {
+            cPie.Palette = ChartColorPalette.AutumnBrights;
+            spExport.Visibility = Visibility.Visible;
+            spReference.Visibility = Visibility.Visible;
+            spRefreash.Visibility = Visibility.Visible;
+        }
 
         private void btnTyping_Click(object sender, RoutedEventArgs e)
         {
@@ -155,8 +186,8 @@ namespace huh
             if (success == true)
             {
                 jsonImport.path = openFileDialog.FileName;
-                jsonImport.JI(out ViewForJson graphj);
-                CreateCharts(graphj);
+                jsonImport.JI(out ViewForJson graphv);
+                CreateCharts(graphv);
 
 
             }
@@ -229,34 +260,34 @@ namespace huh
             }
         }
 
-        public void CreateCharts(ViewForJson graphj)
+        public void CreateCharts(ViewForJson graphv)
         { 
              switch (graph.graphType)
                 {
                     case "Pie":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spPieChart.Visibility = Visibility.Visible;                        
-                        this.DataContext = graphj;
+                        this.DataContext = graphv;
                         break;
                     case "Vertical":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spVChart.Visibility = Visibility.Visible;
-                        this.DataContext = graphj;
+                        this.DataContext = graphv;
                         break;
                     case "Horizontal":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spHChart.Visibility = Visibility.Visible;
-                        this.DataContext = graphj;
+                        this.DataContext = graphv;
                         break;
                     case "Polar":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spPolarChart.Visibility = Visibility.Visible;
-                        this.DataContext = graphj;
+                        this.DataContext = graphv;
                         break;
                     case "Spline":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spSChart.Visibility = Visibility.Visible;
-                        this.DataContext = graphj;
+                        this.DataContext = graphv;
                         break;
                 }
         }
@@ -379,36 +410,6 @@ namespace huh
 
         }
 
-        private void btnFloraHues_Click(object sender, RoutedEventArgs e)
-        {
-            cPie.Palette = ChartColorPalette.FloraHues;
-            spExport.Visibility = Visibility.Visible;
-            spReference.Visibility = Visibility.Visible;
-            spRefreash.Visibility = Visibility.Visible;
-        }
-
-        private void btnTomotoSpectrum_Click(object sender, RoutedEventArgs e)
-        {
-            cPie.Palette = ChartColorPalette.TomotoSpectrum;
-            spExport.Visibility = Visibility.Visible;
-            spReference.Visibility = Visibility.Visible;
-            spRefreash.Visibility = Visibility.Visible;
-        }
-
-        private void btnPineapple_Click(object sender, RoutedEventArgs e)
-        {
-            cPie.Palette = ChartColorPalette.Pineapple;
-            spExport.Visibility = Visibility.Visible;
-            spReference.Visibility = Visibility.Visible;
-            spRefreash.Visibility = Visibility.Visible;
-        }
-
-        private void btnAutumnBrights_Click(object sender, RoutedEventArgs e)
-        {
-            cPie.Palette = ChartColorPalette.AutumnBrights;
-            spExport.Visibility = Visibility.Visible;
-            spReference.Visibility = Visibility.Visible;
-            spRefreash.Visibility = Visibility.Visible;
-        }
+      
     }
 }
