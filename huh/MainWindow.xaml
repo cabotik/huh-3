@@ -579,14 +579,14 @@
                                 <Image.ToolTip>
                                     <ToolTip>
                                         <StackPanel Orientation="Horizontal">
-                                            <StackPanel>
+                                            <!--<StackPanel>
                                                 <Label Content="View for Excel file:"/>
                                                 <Image Source="Image/excelsc.png" Width="300" Height="200"/>
-                                            </StackPanel>
-                                            <StackPanel>
+                                            </StackPanel>-->
+                                            <!--<StackPanel>-->
                                                 <Label Content="View for Json file:"/>
                                                 <Image Source="Image/jsonsc.png" Width="300" Height="200" />
-                                            </StackPanel>
+                                            <!--</StackPanel>-->
                                         </StackPanel>
                                     </ToolTip>
                                 </Image.ToolTip>
@@ -717,11 +717,12 @@
         </StackPanel>
 
         <StackPanel Name="spCharts" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <!--марджины добавить-->
 
-            <StackPanel Name="spPieChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Name="spPieChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <syncfusion:SfChart Name="cPie">
                     <syncfusion:SfChart.Series>
-                        <syncfusion:PieSeries ExplodeIndex="5" GroupMode="Angle" GroupTo="30" EnableAnimation="True" ItemsSource="{Binding graphs}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
+                        <syncfusion:PieSeries ExplodeIndex="5" GroupMode="Angle" GroupTo="30" Palette="{Binding graphPalette}" EnableAnimation="True" ItemsSource="{Binding graphs}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
                             <syncfusion:PieSeries.AdornmentsInfo>
                                 <syncfusion:ChartAdornmentInfo ShowConnectorLine="True" 
                                               ConnectorHeight="80" 
@@ -735,17 +736,17 @@
                 </syncfusion:SfChart>
             </StackPanel>
 
-            <StackPanel Name="spPolarChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Name="spPolarChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <syncfusion:SfChart Name="cPolar">
                     <syncfusion:SfChart.Series>
-                        <syncfusion:PolarSeries DrawType="Area" ItemsSource="{Binding graphs}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
+                        <syncfusion:PolarSeries DrawType="Area" ItemsSource="{Binding graphs}" Palette="{Binding graphPalette}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
                             
                         </syncfusion:PolarSeries>
                     </syncfusion:SfChart.Series>
                 </syncfusion:SfChart>
             </StackPanel>
 
-            <StackPanel Name="spHChart" Visibility="Collapsed">
+            <StackPanel Name="spHChart" Visibility="Collapsed" Margin="20">
                 <syncfusion:SfChart Name="cVertical">
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis Header="Name" FontSize="14"/>
@@ -756,13 +757,13 @@
                     </syncfusion:SfChart.SecondaryAxis>
 
                     <syncfusion:SfChart.Series>
-                        <syncfusion:BarSeries EnableAnimation="True" ItemsSource="{Binding graphs}"  XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
+                        <syncfusion:BarSeries EnableAnimation="True" ItemsSource="{Binding graphs}" Palette="{Binding graphPalette}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
                         </syncfusion:BarSeries>
                     </syncfusion:SfChart.Series>
                 </syncfusion:SfChart>
             </StackPanel>
 
-            <StackPanel Name="spVChart" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <StackPanel Name="spVChart" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="20">
                 <syncfusion:SfChart Name="cHorizontal">
                     <syncfusion:SfChart.PrimaryAxis>
                         <syncfusion:CategoryAxis Header="Name" FontSize="14"/>
@@ -772,15 +773,15 @@
                         <syncfusion:NumericalAxis Header="Value" FontSize="14" Interval="2" />
                     </syncfusion:SfChart.SecondaryAxis>
 
-                    <syncfusion:ColumnSeries ItemsSource="{Binding graphs}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True" >
+                    <syncfusion:ColumnSeries ItemsSource="{Binding graphs}" Palette="{Binding graphPalette}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True" >
                     </syncfusion:ColumnSeries>
                 </syncfusion:SfChart>
             </StackPanel>
 
-            <StackPanel Name="spSChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Name="spSChart" Visibility="Collapsed" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20">
                 <syncfusion:SfChart x:Name="cSpline">
                     <syncfusion:SfChart.Series>
-                        <syncfusion:SplineAreaSeries ItemsSource="{Binding graphs}"  XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
+                        <syncfusion:SplineAreaSeries ItemsSource="{Binding graphs}" Palette="{Binding graphPalette}" XBindingPath="graphName" YBindingPath="graphValue" ShowTooltip="True">
                         </syncfusion:SplineAreaSeries>
                     </syncfusion:SfChart.Series>
                 </syncfusion:SfChart>

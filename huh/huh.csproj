@@ -13,6 +13,7 @@
     <None Remove="Images\back.png" />
     <None Remove="Images\bar-graph.png" />
     <None Remove="Images\close.png" />
+    <None Remove="Images\excelsc.png" />
     <None Remove="Images\exelf.png" />
     <None Remove="Images\FloraHues.png" />
     <None Remove="Images\graph.png" />
@@ -54,6 +55,7 @@
     <Resource Include="Images\back.png" />
     <Resource Include="Images\bar-graph.png" />
     <Resource Include="Images\close.png" />
+    <Resource Include="Images\excelsc.png" />
     <Resource Include="Images\exelf.png" />
     <Resource Include="Images\FloraHues.png" />
     <Resource Include="Images\graph.png" />

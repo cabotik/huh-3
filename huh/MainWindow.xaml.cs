@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using Syncfusion.UI.Xaml.Charts;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Transactions;
 using System.Windows;
@@ -17,6 +18,7 @@ namespace huh
         Graph graph = new Graph();
         public string integ;
         List<GraphField> graphs = new List<GraphField>();
+        GraphField gf = new GraphField(); 
 
         public MainWindow()
         {
@@ -59,7 +61,7 @@ namespace huh
         }
         private void btnFloraHues_Click(object sender, RoutedEventArgs e)
         {
-            cPie.Palette = ChartColorPalette.FloraHues;
+            gf.graphPalette = ChartColorPalette.FloraHues;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -67,7 +69,7 @@ namespace huh
 
         private void btnTomotoSpectrum_Click(object sender, RoutedEventArgs e)
         {
-            cPie.Palette = ChartColorPalette.TomotoSpectrum;
+            gf.graphPalette = ChartColorPalette.TomotoSpectrum;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -75,7 +77,7 @@ namespace huh
 
         private void btnPineapple_Click(object sender, RoutedEventArgs e)
         {
-            cPie.Palette = ChartColorPalette.Pineapple;
+            gf.graphPalette = ChartColorPalette.Pineapple;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -83,7 +85,7 @@ namespace huh
 
         private void btnAutumnBrights_Click(object sender, RoutedEventArgs e)
         {
-            cPie.Palette = ChartColorPalette.AutumnBrights;
+            gf.graphPalette = ChartColorPalette.AutumnBrights;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -177,7 +179,9 @@ namespace huh
         {
             GetExcel();
         }
-        public void GetJson()
+      
+
+        private void btnJsonf_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             JsonImport jsonImport = new JsonImport();
@@ -192,11 +196,6 @@ namespace huh
 
             }
             else { MessageBox.Show("File didnt choose", "MESSAGE", MessageBoxButton.OK, MessageBoxImage.Information); }
-        }
-
-        private void btnJsonf_Click(object sender, RoutedEventArgs e)
-        {
-            GetJson();
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
@@ -234,6 +233,7 @@ namespace huh
                     spSaveBtn.Visibility = Visibility.Visible;
                     spPieChart.Visibility = Visibility.Visible;
                     this.DataContext = vgraph;
+                   
                     break;
 
                 case "Vertical":
@@ -268,7 +268,8 @@ namespace huh
                         spSaveBtn.Visibility = Visibility.Visible;
                         spPieChart.Visibility = Visibility.Visible;                        
                         this.DataContext = graphv;
-                        break;
+                   
+                    break;
                     case "Vertical":
                         spSaveBtn.Visibility = Visibility.Visible;
                         spVChart.Visibility = Visibility.Visible;
@@ -404,12 +405,6 @@ namespace huh
 
             }
         }
-
-        private void btnReference_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
       
     }
 }
