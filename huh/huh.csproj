@@ -61,9 +61,7 @@
     <Resource Include="Images\graph.png" />
     <Resource Include="Images\graphic.png" />
     <Resource Include="Images\jsonf.png" />
-    <Resource Include="Images\jsonsc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\jsonsc.png" />
     <Resource Include="Images\magic-wand.png" />
     <Resource Include="Images\paint.png" />
     <Resource Include="Images\pie-chart.png" />

@@ -15,6 +15,7 @@ namespace huh
 {
     public partial class MainWindow : Window
     {
+        public ChartColorPalette graphPalette;
         Graph graph = new Graph();
         public string integ;
         List<GraphField> graphs = new List<GraphField>();
@@ -22,14 +23,8 @@ namespace huh
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
-
-        //private void btnStart_Click(object sender, RoutedEventArgs e)
-        //{
-        //    FirstSP.Visibility = Visibility.Collapsed;
-        //    spSettingLabel.Visibility = Visibility.Visible;
-        //}
 
         private void btnPChart_Click(object sender, RoutedEventArgs e)
         {
@@ -61,7 +56,7 @@ namespace huh
         }
         private void btnFloraHues_Click(object sender, RoutedEventArgs e)
         {
-            gf.graphPalette = ChartColorPalette.FloraHues;
+            graphPalette = ChartColorPalette.FloraHues;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -69,7 +64,7 @@ namespace huh
 
         private void btnTomotoSpectrum_Click(object sender, RoutedEventArgs e)
         {
-            gf.graphPalette = ChartColorPalette.TomotoSpectrum;
+            graphPalette = ChartColorPalette.TomotoSpectrum;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -77,7 +72,7 @@ namespace huh
 
         private void btnPineapple_Click(object sender, RoutedEventArgs e)
         {
-            gf.graphPalette = ChartColorPalette.Pineapple;
+            graphPalette = ChartColorPalette.Pineapple;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -85,7 +80,7 @@ namespace huh
 
         private void btnAutumnBrights_Click(object sender, RoutedEventArgs e)
         {
-            gf.graphPalette = ChartColorPalette.AutumnBrights;
+            graphPalette = ChartColorPalette.AutumnBrights;
             spExport.Visibility = Visibility.Visible;
             spReference.Visibility = Visibility.Visible;
             spRefreash.Visibility = Visibility.Visible;
@@ -94,12 +89,13 @@ namespace huh
         private void btnTyping_Click(object sender, RoutedEventArgs e)
         {
             spManualInput.Visibility = Visibility.Visible;
+            spPalette.Visibility = Visibility.Collapsed;
             spTypyOfDiagram.Visibility = Visibility.Collapsed;
             spExport.Visibility = Visibility.Collapsed;
             spReference.Visibility = Visibility.Collapsed;
         }
 
-        public void GetExcel()
+        private void btnExcel_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
@@ -107,80 +103,40 @@ namespace huh
             var path = openFileDialog.FileName;
             if (success == true)
             {
-                Workbook wb = new Workbook(path);               
-                WorksheetCollection collection = wb.Worksheets;            
+                Workbook wb = new Workbook(path);
+                WorksheetCollection collection = wb.Worksheets;
                 Worksheet worksheet = collection[0];
                 int rows = worksheet.Cells.MaxDataRow;
                 int cols = worksheet.Cells.MaxDataColumn;
-                //List<ViewForJson> view = new List<ViewForJson>();   
-                //List<ViewGraph> viewGraphs = new List<ViewGraph>();
                 List<GraphField> gr = new List<GraphField>();
 
                 for (int i = 0; i < rows; i++)
                 {
                     for (int j = 0; j < cols; j++)
                     {
-                        if (worksheet.Cells[0, j].Value != null)
+                        if (worksheet.Cells[i, j].Value != null)
                         {
                             GraphField graphField = new GraphField();
-                            
-                            graphField.graphName = worksheet.Cells[i, j].Value.ToString();
+
+                            graphField.graphName = worksheet.Cells[i, j + 1].Value.ToString();
                             try
                             {
                                 graphField.graphValue = Convert.ToInt32(worksheet.Cells[i + 1, j].Value);
                                 gr.Add(graphField);
                             }
-                            catch(Exception ex)
+                            catch (Exception ex)
                             {
                                 MessageBox.Show(ex.ToString());
                             }
                         }
-                       
-                    }
-                }
-                foreach (var v in path)
-                {
-                    switch (graph.graphType)
-                    {
-                        case "Pie":
-                            spSaveBtn.Visibility = Visibility.Visible;
-                            spPieChart.Visibility = Visibility.Visible;
-                            this.DataContext = v;                            
-                            break;
-                        case "Vertical":
-                            spSaveBtn.Visibility = Visibility.Visible;
-                            spVChart.Visibility = Visibility.Visible;
-                            this.DataContext = v;
-                            break;
-                        case "Horizontal":
-                            spSaveBtn.Visibility = Visibility.Visible;
-                            spHChart.Visibility = Visibility.Visible;
-                            this.DataContext = v;
-                            break;
-                        case "Polar":
-                            spSaveBtn.Visibility = Visibility.Visible;
-                            spPolarChart.Visibility = Visibility.Visible;
-                            this.DataContext = v;
-                            break;
-                        case "Spline":
-                            spSaveBtn.Visibility = Visibility.Visible;
-                            spSChart.Visibility = Visibility.Visible;
-                            this.DataContext = v;
-                            break;
-                    }
-                }
 
+                    }
+                }
+                CreateCharts(new ViewGraph(gr));
             }
-            else { MessageBox.Show("File didnt choose", "MESSAGE", MessageBoxButton.OK, MessageBoxImage.Information); }
-
+            else { Message("File didnt choose"); }
         }
-
-        private void btnExcel_Click(object sender, RoutedEventArgs e)
-        {
-            GetExcel();
-        }
-      
-
+     
         private void btnJsonf_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -190,24 +146,27 @@ namespace huh
             if (success == true)
             {
                 jsonImport.path = openFileDialog.FileName;
-                jsonImport.JI(out ViewForJson graphv);
+                jsonImport.JI(out ViewGraph graphv);
                 CreateCharts(graphv);
-
-
             }
-            else { MessageBox.Show("File didnt choose", "MESSAGE", MessageBoxButton.OK, MessageBoxImage.Information); }
+            else { Message("File didnt choose"); }
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            GraphField graphField = new GraphField();
+            int a = 1;
             foreach (var stack in spValue.Children)                                 //пробежка по всем элементам окна
             {
-                StackPanel? stackPanel = stack as StackPanel;                       //поиск StackPanel
+                a++;
+                StackPanel? stackPanel = stack as StackPanel;    //поиск StackPanel
+                if (a % 2 == 1) 
+                { graphField = new GraphField(); }
                 if (stackPanel != null)
                 {
                     foreach (var tbn in stackPanel.Children)                        //пробежка по всем полям
                     {
-                        GraphField graphField = new GraphField();
+                      
                         if (tbn != null)
                         {
                             TextBox? textBox = tbn as TextBox;
@@ -223,45 +182,17 @@ namespace huh
                         }
                         graphs.Add(graphField);                                     //добавление графа
                     }
+                    if(a % 2 == 0) 
+                    { graphs.Add(graphField); }
                 }
             }
-            //МАГИЧЕСКАЯ КНОПКА КРАФТИТ ДИАГРАММУ
             ViewGraph vgraph = new ViewGraph(graphs);
-            switch (graph.graphType)
-            {
-                case "Pie":
-                    spSaveBtn.Visibility = Visibility.Visible;
-                    spPieChart.Visibility = Visibility.Visible;
-                    this.DataContext = vgraph;
-                   
-                    break;
-
-                case "Vertical":
-                    spSaveBtn.Visibility = Visibility.Visible;
-                    spVChart.Visibility = Visibility.Visible;
-                    this.DataContext = vgraph;
-                    break;
-
-                case "Horizontal":
-                    spSaveBtn.Visibility = Visibility.Visible;
-                    spHChart.Visibility = Visibility.Visible;
-                    this.DataContext = vgraph;
-                    break;
-                case "Polar":
-                    spSaveBtn.Visibility = Visibility.Visible;
-                    spPolarChart.Visibility = Visibility.Visible; 
-                    this.DataContext = vgraph;
-                    break;
-                case "Spline":
-                    spSaveBtn.Visibility = Visibility.Visible;
-                    spSChart.Visibility = Visibility.Visible;
-                    this.DataContext = vgraph;
-                    break;
-            }
+            CreateCharts(vgraph);
         }
 
-        public void CreateCharts(ViewForJson graphv)
+        public void CreateCharts(ViewGraph graphv)
         { 
+            graphv.graphPalette = graphPalette;
              switch (graph.graphType)
                 {
                     case "Pie":
@@ -304,46 +235,45 @@ namespace huh
                 click = true;
             }
         }
-        private void message(String mes)    //Упрощаем вызов сообщений
+        private void Message(String mes)    //Упрощаем вызов сообщений
         {
-            MessageBox.Show(mes, "MESSAGE", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(mes, "Message", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        private void createField()
+        private void CreateField()
         {
             //это стек нейм
-            StackPanel spPanelN = getPanel("Name");
+            StackPanel spPanelN = GetPanel("Name");
             //это стек вэлью
-            StackPanel spPanelV = getPanel("Value");
+            StackPanel spPanelV = GetPanel("Value");
 
             spValue.Children.Add(spPanelN);
             spValue.Children.Add(spPanelV);
         }
-        private StackPanel getPanel(string st)
+        private StackPanel GetPanel(string st)
         {
             StackPanel local = new StackPanel()
             {
                 Orientation = Orientation.Horizontal,
                 Name = "spForTwoFields"
             };
-            local.Children.Add(getLabel(st));
-            local.Children.Add(getBox(st));
+            local.Children.Add(GetLabel(st));
+            local.Children.Add(GetBox(st));
             return local;
         }
-        private Label getLabel(String str)
+        private Label GetLabel(String str)
         {
             return new Label() { Content = "Enter " + str + " of graph:" };
         }
-        private TextBox getBox(String str)
+        private TextBox GetBox(String str)
         {
             return new TextBox() { Name = "tbGraph" + str };
         }
-
         public void FieldsCreater()
         {
             String tbText = tbFields.Text;
             Graph graphField = new Graph();
             int counter;
-            if (String.IsNullOrEmpty(tbText)) message("Enter something.");
+            if (String.IsNullOrEmpty(tbText)) Message("Enter something.");
             else
             {
                 if (int.TryParse(tbText, out counter))
@@ -351,10 +281,10 @@ namespace huh
                     graphField.fieldQuantity = int.Parse(tbText);
                     for (int i = 0; i < graphField.fieldQuantity; i++)
                     {
-                        createField();
+                        CreateField();
                     }
                 }
-                else message("Not an integer.");
+                else Message("Not an integer.");
             }
             spBtnCreate.Visibility = Visibility.Visible;
         }
@@ -370,7 +300,6 @@ namespace huh
             Close();//лицензия <3
 
         }
-
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -379,7 +308,6 @@ namespace huh
 
             if (sfd.ShowDialog() == true)
             {
-
                 using (Stream fs = sfd.OpenFile())
                 {
                     ViewGraph vgraph = new ViewGraph(graphs);
