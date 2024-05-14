@@ -93,7 +93,6 @@ namespace huh
             spTypyOfDiagram.Visibility = Visibility.Collapsed;
             spExport.Visibility = Visibility.Collapsed;
             spReference.Visibility = Visibility.Collapsed;
-            spBtnCreate.Visibility = Visibility.Visible;
         }
 
         private void btnExcel_Click(object sender, RoutedEventArgs e)
@@ -160,7 +159,7 @@ namespace huh
             foreach (var stack in spValue.Children)                                 //пробежка по всем элементам окна
             {
                 x++;
-                StackPanel? stackPanel = stack as StackPanel;    //поиск StackPanel
+                StackPanel? stackPanel = stack as StackPanel;   
                 if (x % 2 == 1)
                 { graphField = new GraphField(); }
                 if (stackPanel != null)
@@ -230,29 +229,22 @@ namespace huh
             { 
                 spValue.Visibility = Visibility.Visible;
                 spRefreash.Visibility = Visibility.Visible;
+                spBtnCreate.Visibility = Visibility.Visible;    
                 FieldsCreater();
                 click = true;
             }
         }
-        private void Message(String mes)    //Упрощаем вызов сообщений
+        private void Message(String mes)
         {
             MessageBox.Show(mes, "Message", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void CreateField()
         {
-
-            //StackPanel spCommon = new StackPanel()
-            //{
-            //    Orientation = Orientation.Vertical,
-            //    Name = "spCommon"
-            //};
             StackPanel spPanelN = GetPanel("Name");
             StackPanel spPanelV = GetPanel("Value");
 
             spValue.Children.Add(spPanelN);
             spValue.Children.Add(spPanelV);
-            //spValue.Children.Add(spCommon);
-
         }
         private StackPanel GetPanel(string st)
         {
