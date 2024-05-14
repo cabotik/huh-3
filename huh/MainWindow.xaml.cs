@@ -154,16 +154,19 @@ namespace huh
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
-        {            
+        {
+            GraphField graphField = new GraphField();
+            int x = 0;
             foreach (var stack in spValue.Children)                                 //пробежка по всем элементам окна
-            {          
+            {
+                x++;
                 StackPanel? stackPanel = stack as StackPanel;    //поиск StackPanel
+                if (x % 2 == 1)
+                { graphField = new GraphField(); }
                 if (stackPanel != null)
-                {
+                {                                      
                     foreach (var tbn in stackPanel.Children)                        //пробежка по всем полям
-                    {
-                        GraphField graphField = new GraphField();
-
+                    {                       
                         if (tbn != null)
                         {
                             TextBox? textBox = tbn as TextBox;
@@ -176,9 +179,10 @@ namespace huh
                                 if (Int32.TryParse(textBox.Text, out var val)) graphField.graphValue = val;
                                 else graphField.graphValue = 0;
                             }
-                        }
-                        graphs.Add(graphField);                                     //добавление графа
+                        }                        
                     }
+                    if (x % 2 == 0)
+                    { graphs.Add(graphField); }
                 }
             }
             ViewGraph vgraph = new ViewGraph(graphs);
@@ -236,13 +240,19 @@ namespace huh
         }
         private void CreateField()
         {
-            //это стек нейм
+
+            //StackPanel spCommon = new StackPanel()
+            //{
+            //    Orientation = Orientation.Vertical,
+            //    Name = "spCommon"
+            //};
             StackPanel spPanelN = GetPanel("Name");
-            //это стек вэлью
             StackPanel spPanelV = GetPanel("Value");
 
             spValue.Children.Add(spPanelN);
             spValue.Children.Add(spPanelV);
+            //spValue.Children.Add(spCommon);
+
         }
         private StackPanel GetPanel(string st)
         {
