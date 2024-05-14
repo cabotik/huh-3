@@ -93,6 +93,7 @@ namespace huh
             spTypyOfDiagram.Visibility = Visibility.Collapsed;
             spExport.Visibility = Visibility.Collapsed;
             spReference.Visibility = Visibility.Collapsed;
+            spBtnCreate.Visibility = Visibility.Visible;
         }
 
         private void btnExcel_Click(object sender, RoutedEventArgs e)
@@ -153,20 +154,16 @@ namespace huh
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
-        {
-            GraphField graphField = new GraphField();
-            int a = 1;
+        {            
             foreach (var stack in spValue.Children)                                 //пробежка по всем элементам окна
-            {
-                a++;
+            {          
                 StackPanel? stackPanel = stack as StackPanel;    //поиск StackPanel
-                if (a % 2 == 1) 
-                { graphField = new GraphField(); }
                 if (stackPanel != null)
                 {
                     foreach (var tbn in stackPanel.Children)                        //пробежка по всем полям
                     {
-                      
+                        GraphField graphField = new GraphField();
+
                         if (tbn != null)
                         {
                             TextBox? textBox = tbn as TextBox;
@@ -182,8 +179,6 @@ namespace huh
                         }
                         graphs.Add(graphField);                                     //добавление графа
                     }
-                    if(a % 2 == 0) 
-                    { graphs.Add(graphField); }
                 }
             }
             ViewGraph vgraph = new ViewGraph(graphs);

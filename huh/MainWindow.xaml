@@ -470,27 +470,6 @@
                             </Button.Resources>
                         </Button>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <!--StackPanel for reference tooltip-->
-                        <StackPanel Name="spReference" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Collapsed" Margin="15,10,10,10">
-                            <Image Source="Images/question.png" Width="30">
-                                <Image.ToolTip>
-                                    <ToolTip>
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel>
-                                                <Label Content="View for Excel file:"/>
-                                                <Image Source="Images/excelsc.png" Width="400" Height="400"/>
-                                            </StackPanel>
-                                            <StackPanel>
-                                                <Label Content="View for Json file:"/>
-                                                <Image Source="Images/jsonsc.png" Width="400" Height="400" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </ToolTip>
-                                </Image.ToolTip>
-                            </Image>
-                        </StackPanel>
-                    </StackPanel>
                 </StackPanel>
               
                 <!--StackPanel for manual input-->
@@ -533,51 +512,103 @@
                             </Button.Style>
                         </Button>
                     </StackPanel>
-
                     <StackPanel Name="spValue" Visibility="Collapsed">
                     </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <!--StackPanel for refresh button-->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                       
-
-                        <!--StackPanel for create button-->
-                        <StackPanel x:Name="spBtnCreate" Visibility="Collapsed">
-                            <Button Name="btnCreate" ToolTip="Create Diagram" BorderThickness="0" Click="btnCreate_Click" Margin="15"  Background="Transparent">
-                                <StackPanel>
-                                    <Image Source="Images/magic-wand.png" Width="40"/>
-                                </StackPanel>
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="RenderTransform">
-                                                    <Setter.Value>
-                                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                                <Setter Property="Template">
-                                                    <Setter.Value>
-                                                        <ControlTemplate TargetType="Button">
-                                                            <Grid Background="{TemplateBinding Background}">
-                                                                <ContentPresenter HorizontalAlignment="Center"
-                                                                                VerticalAlignment="Center"/>
-                                                            </Grid>
-                                                        </ControlTemplate>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Button.Resources>
-                                    <Style TargetType="Border">
-                                        <Setter Property="CornerRadius" Value="10"/>
-                                    </Style>
-                                </Button.Resources>
-                            </Button>
-                        </StackPanel>
+                    <StackPanel Name="spRefreash" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Collapsed">
+                        <Button Name="btnRefreash" ToolTip="Refesh(Clear all)" BorderThickness="0" Click="btnRefreash_Click" Margin="15,10,10,10"  Background="Transparent">
+                            <StackPanel>
+                                <Image Source="Images/refreash.png" Width="30"/>
+                            </StackPanel>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                    <!--StackPanel for create button-->
+                    <StackPanel x:Name="spBtnCreate" Visibility="Collapsed">
+                        <Button Name="btnCreate" ToolTip="Create Diagram" BorderThickness="0" Click="btnCreate_Click" Margin="15"  Background="Transparent">
+                            <StackPanel>
+                                <Image Source="Images/magic-wand.png" Width="40"/>
+                            </StackPanel>
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="RenderTransform">
+                                                <Setter.Value>
+                                                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="10"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                    <!--StackPanel for reference tooltip-->
+                    <StackPanel Name="spReference" HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="Collapsed" Margin="15,10,10,10">
+                        <Image Source="Images/question.png" Width="30">
+                            <Image.ToolTip>
+                                <ToolTip>
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel>
+                                            <Label Content="View for Excel file:"/>
+                                            <Image Source="Images/excelsc.png" Width="400" Height="400"/>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="View for Json file:"/>
+                                            <Image Source="Images/jsonsc.png" Width="400" Height="400" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ToolTip>
+                            </Image.ToolTip>
+                        </Image>
                     </StackPanel>
                 </StackPanel>
+
             </StackPanel>
         </StackPanel>
 
